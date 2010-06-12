@@ -1,0 +1,274 @@
+package com.johnlindquist.flashbelt.view {
+	import Box2D.Collision.Shapes.b2PolygonShape;
+	import Box2D.Dynamics.b2FixtureDef;
+	import Box2D.Collision.Shapes.b2Shape;
+	import Box2D.Collision.b2AABB;
+	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Dynamics.Joints.b2MouseJoint;
+	import Box2D.Dynamics.Joints.b2MouseJointDef;
+	import Box2D.Dynamics.b2Body;
+	import Box2D.Dynamics.b2BodyDef;
+	import Box2D.Dynamics.b2DebugDraw;
+	import Box2D.Dynamics.b2World;
+
+	import flight.binding.Bind;
+
+	import com.johnlindquist.flashbelt.model.TwitterModel;
+	import com.johnlindquist.flashbelt.state.FlashBeltTwitterViewState;
+
+	import org.robotlegs.mvcs.Mediator;
+
+	import mx.events.PropertyChangeEvent;
+
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class FlashBeltTwitterViewMediator extends Mediator {
+
+		private var mousePVec : b2Vec2 = new b2Vec2();
+		private var mouseJoint : b2MouseJoint;
+		private var mouseXWorldPhys : Number;
+		private var mouseYWorldPhys : Number;
+		private var isMouseDown : Boolean = false;
+		private var WORLD_SCALE:Number = 30;
+		private var WIDTH:Number = 640;
+		private var HEIGHT:Number = 480;
+ 
+		private var world:b2World;
+ 
+		private var iterations:int = 10;
+		private var timeStep:Number = 1.0/30.0;
+
+		[Inject]
+		public var flashBeltTwitterView : FlashBeltTwitterView;
+
+		[Inject]
+		public var flashBeltTwitterViewState : FlashBeltTwitterViewState;
+
+		[Inject]
+		public var twitterModel : TwitterModel;
+		private var clipContainer : Sprite;
+
+		
+		override public function onRegister() : void {
+			Bind.addListener(onFlashBeltTwitterViewStateChange, flashBeltTwitterViewState, "currentState");				
+			Bind.addListener(onSearchResults, twitterModel, "searchResults");				
+		}
+
+		private function onSearchResults(event:*) : void {
+		}
+
+		private function createWorld():void {
+			var worldBounds:b2AABB = new b2AABB();
+			worldBounds.lowerBound = new b2Vec2( 0, 0 );
+			worldBounds.upperBound = new b2Vec2(WIDTH/WORLD_SCALE, HEIGHT/WORLD_SCALE);
+ 
+ 			var gravity:b2Vec2 = new b2Vec2(0, 10);
+			var sleep:Boolean = true;
+ 
+			world = new b2World(gravity, sleep);
+			var debugDraw:b2DebugDraw = new b2DebugDraw();
+			debugDraw.SetSprite(flashBeltTwitterView);
+			debugDraw.SetDrawScale(30.0);
+			debugDraw.SetFillAlpha(0.3);
+			debugDraw.SetLineThickness(1.0);
+			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+			world.SetDebugDraw(debugDraw)
+		}
+
+		private function createFloor():void
+		{
+			// Create border of boxes
+			var floorShapeDef:b2PolygonShape = new b2PolygonShape();
+			var floorBodyDef:b2BodyDef = new b2BodyDef();
+			var floor:b2Body;
+ 
+			//bottom shape definition
+			floorShapeDef.SetAsBox((WIDTH+40)/WORLD_SCALE/2, 100/WORLD_SCALE);
+			floorShapeDef.
+ 
+			// Bottom
+			floorBodyDef.position = new b2Vec2(WIDTH/WORLD_SCALE/2, (HEIGHT+95)/WORLD_SCALE);
+			floor = world.CreateBody(floorBodyDef);
+			floor.CreateShape(floorShapeDef);
+ 
+			floor.SetMassFromShapes();
+		}
+ 
+		private function createShapes():void
+		{
+			for (var i:Number = 0; i < 20; i++)
+			{
+				//radius for physics circle and sphere
+				var radius:Number = Math.random() * 50 + 10;
+ 
+				var bodyDef:b2BodyDef = new b2BodyDef();
+				//random position toward the top of the stage
+				bodyDef.position = new b2Vec2(Math.random() * WIDTH / WORLD_SCALE, Math.random() * 50 /WORLD_SCALE);
+ 
+				var body:b2Body = world.CreateBody(bodyDef);
+ 
+				var shapeDef:b2CircleDef = new b2CircleDef();
+				shapeDef.radius = radius/WORLD_SCALE;
+				shapeDef.density = 1;
+				shapeDef.friction = .7;
+				shapeDef.restitution = .7;
+				body.CreateShape(shapeDef);
+				body.SetMassFromShapes();
+ 
+				var sphere:Sphere = new Sphere(null, radius);
+ 
+				scene.addChild(sphere);
+				body.m_userData = sphere;
+			}
+		}
+ 
+		override protected function onRenderTick(event:Event=null):void
+		{
+			world.Step(timeStep, iterations);
+ 
+			//sets the position of any DisplayObject3D to the body position
+			for (var bb:b2Body = world.m_bodyList; bb; bb = bb.m_next)
+			{
+                if (bb.m_userData is DisplayObject3D)
+                {
+                        bb.m_userData.x = bb.GetPosition().x * WORLD_SCALE - WIDTH * .5;
+                        bb.m_userData.y = -bb.GetPosition().y * WORLD_SCALE + HEIGHT * .5;
+                        bb.m_userData.rotationZ = -bb.GetAngle() * (180/Math.PI);
+                }
+			}
+			renderer.renderScene(scene, camera, viewport);
+		}
+
+		private function setupMouseEvents() : void {
+			stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+		}
+
+		private function onMouseDown(e : MouseEvent) : void {
+			isMouseDown = true;
+		};
+
+		private function onMouseUp(e : MouseEvent) : void {
+			isMouseDown = false;
+		};
+
+		private function updateMouseWorld() : void {
+			mouseXWorldPhys = mouseX / WORLD_SCALE; 
+			mouseYWorldPhys = mouseY / WORLD_SCALE; 
+		}
+
+		private function mouseDrag() : void {
+			// mouse press
+			if (isMouseDown && !mouseJoint) {
+ 
+				//refer to 'getBodyAtMouse()' below
+				var body : b2Body = getBodyAtMouse();
+ 
+				if (body) {
+					var md : b2MouseJointDef = new b2MouseJointDef();
+					md.body1 = world.m_groundBody;
+					md.body2 = body;
+					md.target = new b2Vec2(mouseXWorldPhys, mouseYWorldPhys);
+					md.maxForce = 300.0 * body.m_mass;
+					md.timeStep = timeStep;
+					mouseJoint = world.CreateJoint(md) as b2MouseJoint;
+					body.WakeUp();
+				}
+			}
+ 
+			// mouse release
+			if (!isMouseDown) {
+				if (mouseJoint) {
+					world.DestroyJoint(mouseJoint);
+					mouseJoint = null;
+				}
+			}
+ 
+ 
+			// mouse move
+			if (mouseJoint) {
+				var p2 : b2Vec2 = new b2Vec2(mouseXWorldPhys, mouseYWorldPhys);
+				mouseJoint.m_target = p2;
+			} 
+		}
+
+		public function getBodyAtMouse(isStaticIncluded : Boolean = false) : b2Body {
+			// Make a small box.
+			mousePVec = new b2Vec2(mouseXWorldPhys, mouseYWorldPhys);
+			var aabb : b2AABB = new b2AABB();
+			aabb.lowerBound = new b2Vec2(mouseXWorldPhys - 0.001, mouseYWorldPhys - 0.001);
+			aabb.upperBound = new b2Vec2(mouseXWorldPhys + 0.001, mouseYWorldPhys + 0.001);
+ 
+			// Query the world for overlapping shapes.
+			var maxCount : int = 10;
+			var shapes : Array = new Array();
+			var count : int = world.Query(aabb, shapes, maxCount);
+			var body : b2Body = null;
+			for (var i : int = 0;i < count;++i) {
+				var shape : b2Shape = shapes[i] as b2Shape;
+				var inside : Boolean = shape.TestPoint(shape.m_body.GetXForm(), mousePVec);
+				if (inside) {
+					body = shape.m_body;
+					break;
+				}
+			}
+			return body;
+		}
+
+		//		private function onSearchResults(event : PropertyChangeEvent) : void {
+		//			
+		//			if(event.newValue) {
+		//				
+		//				for each (var statusVO : StatusVO in twitterModel.searchResults) {
+		//					var loader : Loader = new Loader();
+		//					var request : URLRequest = new URLRequest(statusVO.user.profileImageURL);
+		//					trace('statusVO.user.profileImageURL: ' + (statusVO.user.profileImageURL));
+		//					loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoadComplete);
+		//					loader.load(request)
+		//				}
+		//				
+		//				var bmc : BitmapCanvas = new BitmapCanvas(800, 600);
+		//				flashBeltTwitterView.addChild(bmc);
+		//				clipContainer = new Sprite();
+		//				bmc.startCapture(clipContainer, true);
+		//				
+		//				var filter:ColorMatrixFilter = new ColorMatrixFilter();
+		//				var matrix:Array = new Array();
+		//				matrix = matrix.concat([1, 0, 0, 0, 0]); // red
+		//				matrix = matrix.concat([0, 0, 0, 0, 0]); // green
+		//				matrix = matrix.concat([0, 0, 0, 0, 0]); // blue
+		//				matrix = matrix.concat([0, 0, 0, .99, 0]); // alpha
+		//				filter.matrix = matrix;
+		//				var blurRhythm : FilterRhythm = new FilterRhythm([filter], bmc.bitmap.bitmapData);
+		//				blurRhythm.start();
+		//			}
+		//		}
+		//
+		//		private function onLoadComplete(event : Event) : void {
+		//			var content : DisplayObject = LoaderInfo(event.target).loader.content;
+		//			content.x = Math.random() * 500;
+		//			content.y = Math.random() * 500;
+		//			var swarm : Swarm = new Swarm(content, new Point(800 / 2, 600 / 2), 10, .03, 10);
+		//			swarm.start();
+		//			//			var xVib : VariableVibration = new VariableVibration(content, "x", 0.99, 0.05, 20);
+		//			//			var yVib : VariableVibration = new VariableVibration(content, "y", 0.99, 0.05, 20);
+		//			var zVib : VariableVibration = new VariableVibration(content, "z", 0.99, 0.02, 10);
+		//			
+		//			
+		//			//			xVib.start();
+		//			//			yVib.start();
+		//			zVib.start();
+		//			clipContainer.addChild(content);
+		//		}
+
+		private function onFlashBeltTwitterViewStateChange(event : PropertyChangeEvent) : void {
+			trace("old state:", event.oldValue, "new state:", event.newValue);
+			flashBeltTwitterView.gotoAndPlay("search");
+		}
+	}
+}

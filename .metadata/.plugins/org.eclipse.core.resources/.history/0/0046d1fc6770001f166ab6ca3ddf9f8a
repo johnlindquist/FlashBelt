@@ -1,0 +1,54 @@
+/*
+
+Copyright (c) 2010 Roundarch, All Rights Reserved 
+
+@author   John Lindquist
+@contact  johnlindquist@gmail.com
+@project  FlashBelt
+
+@internal 
+
+ */
+package com.johnlindquist.flashbelt {
+	//imports
+        import com.johnlindquist.flashbelt.view.StatusViewMediatorMediator;
+            import com.johnlindquist.flashbelt.view.StatusViewMediatorMediator;
+        import com.johnlindquist.flashbelt.view.StatusViewMediator;
+            import com.johnlindquist.flashbelt.view.StatusViewMediator;
+        import com.johnlindquist.flashbelt.view.StatusView;
+            import com.johnlindquist.flashbelt.view.StatusView;
+        import com.johnlindquist.flashbelt.view.LoginViewMediatorMediator;
+            import com.johnlindquist.flashbelt.view.LoginViewMediatorMediator;
+        import com.johnlindquist.flashbelt.view.LoginViewMediator;
+            import com.johnlindquist.flashbelt.view.LoginViewMediator;
+        import com.johnlindquist.flashbelt.view.LoginView;
+            import com.johnlindquist.flashbelt.view.LoginView;
+	import com.johnlindquist.flashbelt.controller.LoggedInCommand;
+	import com.johnlindquist.flashbelt.controller.StatusUpdatedCommand;
+	import com.johnlindquist.flashbelt.signals.LoggedIn;
+	import com.johnlindquist.flashbelt.signals.StatusUpdated;
+
+	import org.robotlegs.mvcs.SignalContext;
+
+	public class FlashBeltContext extends SignalContext {
+		override public function startup() : void {
+			//map signals to commands
+			signalCommandMap.mapSignalClass(StatusUpdated, StatusUpdatedCommand);
+			signalCommandMap.mapSignalClass(LoggedIn, LoggedInCommand);
+			
+			//map models
+			
+			//map services
+			
+			//map views to mediators
+            mediatorMap.mapView(StatusViewMediatorMediator,StatusViewMediatorMediatorMediator);
+            mediatorMap.mapView(StatusViewMediator,StatusViewMediatorMediator);
+            mediatorMap.mapView(StatusView,StatusViewMediator);
+            mediatorMap.mapView(LoginViewMediatorMediator,LoginViewMediatorMediatorMediator);
+            mediatorMap.mapView(LoginViewMediator,LoginViewMediatorMediator);
+            mediatorMap.mapView(LoginView,LoginViewMediator);
+
+			super.startup();
+		}		
+	}
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="0" key="org.eclipse.ant.ui.ant_tasks_page_context.sortColumn"/>
+	<item value="106" key="org.eclipse.ant.ui.ant_types_page_context.columnWidth1"/>
+	<item value="false" key="AntPropertiesFileSelectionDialog.showAll"/>
+	<item value="102" key="org.eclipse.ant.ui.ant_types_page_context.columnWidth2"/>
+	<item value="102" key="org.eclipse.ant.ui.ant_types_page_context.columnWidth3"/>
+	<item value="184" key="ant.properties.block.property.columnWidth1"/>
+	<item value="138" key="ant.properties.block.property.columnWidth0"/>
+	<item value="1024" key="ant.properties.block.property.sortDirection"/>
+	<item value="D:\Workspaces\FlashBelt\FlashBeltTwitter\build\libs" key="org.eclipse.ant.ui.lastfolder"/>
+	<item value="137" key="ant.properties.block.property.columnWidth2"/>
+	<item value="0" key="ant.properties.block.property.sortColumn"/>
+	<item value="1024" key="org.eclipse.ant.ui.ant_tasks_page_context.sortDirection"/>
+	<item value="0" key="org.eclipse.ant.ui.ant_types_page_context.sortColumn"/>
+	<item value="1024" key="org.eclipse.ant.ui.ant_types_page_context.sortDirection"/>
+	<item value="154" key="org.eclipse.ant.ui.ant_types_page_context.columnWidth0"/>
+	<item value="98" key="org.eclipse.ant.ui.ant_tasks_page_context.columnWidth2"/>
+	<item value="98" key="org.eclipse.ant.ui.ant_tasks_page_context.columnWidth3"/>
+	<item value="148" key="org.eclipse.ant.ui.ant_tasks_page_context.columnWidth0"/>
+	<item value="103" key="org.eclipse.ant.ui.ant_tasks_page_context.columnWidth1"/>
+</section>

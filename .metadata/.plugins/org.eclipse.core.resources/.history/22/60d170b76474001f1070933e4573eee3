@@ -1,0 +1,30 @@
+package com.johnlindquist.gotcake.view {
+	import flight.binding.Bind;
+
+	import com.johnlindquist.gotcake.model.TrumpFridge;
+
+	import org.robotlegs.mvcs.Mediator;
+
+	import mx.events.PropertyChangeEvent;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class TrumpFridgeMediator extends Mediator {
+		
+		[Inject]
+		public var trumpFridgeView:TrumpFridgeView;
+
+		[Inject]
+		public var trumpFridge:TrumpFridge;
+
+		override public function onRegister() : void {
+			Bind.addListener(onCakeAdded, trumpFridge, "bakedGoods");
+		}
+
+		private function onCakeAdded(event:PropertyChangeEvent) : void {
+			trace("onCakeAdded");
+			trumpFridgeView.addChild(new CakeView());
+		}
+	}
+}

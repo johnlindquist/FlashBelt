@@ -1,0 +1,29 @@
+/*
+Copyright (c) 2010 Roundarch, All Rights Reserved 
+
+@author   John Lindquist
+@contact  johnlindquist@gmail.com
+@project  FlashBelt
+*/
+package com.johnlindquist.flashbelt.view
+{
+	//imports
+            com.johnlindquist.flashbelt$.signals.LoggedIn
+	
+	import org.robotlegs.mvcs.Mediator;
+	
+	public class LoginViewMediator extends Mediator
+	{
+		[Inject]
+		public var loginView:LoginView;		
+
+		//signals
+            [Inject]
+            public var oggedIn:LoggedIn
+
+		override public function onRegister():void
+		{
+			
+		}
+	}
+}

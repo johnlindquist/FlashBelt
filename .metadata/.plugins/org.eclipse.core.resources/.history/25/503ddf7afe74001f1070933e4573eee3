@@ -1,0 +1,14 @@
+package com.johnlindquist.flashbelt.state {
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class FlashBeltTwitterViewState {
+		[Bindable]
+		public var currentState:String;
+		
+		public static const SEARCH: String = "search";
+		public static const RESULTS: String = "results";
+		
+	}
+}

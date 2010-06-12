@@ -1,0 +1,16 @@
+package com.johnlindquist.gotcake.view {
+	import org.robotlegs.mvcs.Mediator;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class TrumpFridgeMediator extends Mediator {
+		
+		[Inject]
+		public var fridge:TrumpFridge;
+
+		override public function onRegister() : void {
+			
+		}
+	}
+}

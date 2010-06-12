@@ -1,0 +1,11 @@
+package com.johnlindquist.flashbelt.view {
+	import flash.display.Sprite;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class ALoginForm extends Sprite {
+		public function ALoginForm() {
+		}
+	}
+}

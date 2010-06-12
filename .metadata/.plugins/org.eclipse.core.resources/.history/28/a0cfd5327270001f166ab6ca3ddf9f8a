@@ -1,0 +1,26 @@
+/*
+Copyright (c) 2010 Roundarch, All Rights Reserved 
+
+@author   John Lindquist
+@contact  johnlindquist@gmail.com
+@project  FlashBelt
+*/
+package com.johnlindquist.flashbelt.view
+{
+	//imports
+	
+	import org.robotlegs.mvcs.Mediator;
+	
+	public class StatusViewMediator extends Mediator
+	{
+		[Inject]
+		public var statusView:StatusView;		
+
+		//signals
+
+		override public function onRegister():void
+		{
+			
+		}
+	}
+}

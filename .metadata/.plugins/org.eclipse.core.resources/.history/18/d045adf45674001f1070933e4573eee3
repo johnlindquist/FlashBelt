@@ -1,0 +1,33 @@
+package com.johnlindquist.gotcake.view {
+	import flight.binding.Bind;
+	import assets.ILikeCakeView;
+
+	import com.johnlindquist.gotcake.model.FrameState;
+
+	import org.robotlegs.mvcs.Mediator;
+
+	import mx.events.PropertyChangeEvent;
+
+	import flash.events.EventDispatcher;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class ILikeCakeViewMediator extends Mediator {
+
+		[Inject]
+		public var iLikeCakeView:assets.ILikeCakeView;
+
+		[Inject]
+		public var frameState:FrameState;
+
+		override public function onRegister() : void {
+			Bind.addListener(iLikeCakeView, onCurrentFrameChange, frameState, "currentFrame");
+		}
+
+		private function onCurrentFrameChange(frame:String) : void {
+			trace(frame);
+			iLikeCakeView.gotoAndPlay(frame);
+		}
+	}
+}

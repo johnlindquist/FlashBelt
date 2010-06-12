@@ -1,0 +1,23 @@
+package com.johnlindquist.gotcake.view {
+	import fl.motion.AnimatorBase;
+	import fl.motion.MotionBase;
+	import assets.ILikeCakeView;
+
+	import org.robotlegs.mvcs.Mediator;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class ILikeCakeViewMediator extends Mediator {
+
+		[Inject]
+		public var iLikeCakeView:assets.ILikeCakeView;
+
+		override public function onRegister() : void {
+			iLikeCakeView.doSomething();
+			iLikeCakeView.stop();
+//			var animator:AnimatorBase = iLikeCakeView.slideTrump.addTarget(iLikeCakeView.donaldTrump, 1, false);
+//			animator.play();
+		}
+	}
+}

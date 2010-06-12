@@ -1,0 +1,39 @@
+/*
+
+Copyright (c) 2010 Roundarch, All Rights Reserved 
+
+@author   John Lindquist
+@contact  johnlindquist@gmail.com
+@project  FlashBeltTwitter
+
+@internal 
+
+*/
+package com.johnlindquist.flashbelt {
+	import com.johnlindquist.flashbelt.service.SearchTwitterService;
+	import com.johnlindquist.flashbelt.signals.SearchTwitterSignal;
+	import com.johnlindquist.flashbelt.controller.SearchTwitterCommand;
+	import com.destroytoday.twitteraspirin.Twitter;
+	import com.johnlindquist.flashbelt.view.ALoginForm;
+	import com.johnlindquist.flashbelt.view.LoginFormMediator;
+
+	import org.robotlegs.mvcs.SignalContext;
+
+	public class FlashBeltTwitterContext extends SignalContext
+	{
+		override public function startup():void
+		{
+			//map signals to commands
+			signalCommandMap.mapSignalClass(SearchTwitterSignal, SearchTwitterCommand);
+			//map models
+			
+			//map services
+			injector.mapValue(Twitter, new Twitter("I8OZkIQZ2c0HGbyXG8OQQ", "aIflHMFbWPy9IwnBXzAVaKVpV3KDyOAfZ4HjJOrvs"));
+			injector.mapSingleton(SearchTwitterService);
+			//map views to mediators
+            mediatorMap.mapView(FlashLoginForm,LoginFormMediator,ALoginForm);
+			super.startup();
+			contextView.addChild(new FlashLoginForm());
+		}		
+	}
+}

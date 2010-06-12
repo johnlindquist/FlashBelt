@@ -1,0 +1,35 @@
+/*
+
+Copyright (c) 2010 Roundarch, All Rights Reserved 
+
+@author   John Lindquist
+@contact  johnlindquist@gmail.com
+@project  FlashBelt
+
+@internal 
+
+*/
+package com.johnlindquist.flashbelt
+{
+	import org.robotlegs.mvcs.SignalContext;
+	
+	public class FlashBeltContext extends SignalContext
+	{
+		override public function startup():void
+		{
+			//map signals to commands
+            signalCommandMap.mapSignalClass(TylerReflexed, TylerReflexedCommand);
+            signalCommandMap.mapSignalClass(LoggedIn, LoggedInCommand);
+            signalCommandMap.mapSignalClass(StatusUpdated, StatusUpdatedCommand);
+			
+			//map models
+			
+			//map services
+			
+			//map views to mediators
+            mediatorMap.mapView(StatusView,StatusViewMediator);
+            mediatorMap.mapView(LoginView,LoginViewMediator);
+			super.startup();
+		}		
+	}
+}

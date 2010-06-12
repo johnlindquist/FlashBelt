@@ -1,0 +1,38 @@
+package com.johnlindquist.flashbelt.controller {
+	import com.johnlindquist.flashbelt.state.FlashBeltTwitterViewState;
+	import com.destroytoday.twitteraspirin.vo.StatusVO;
+	import com.destroytoday.twitteraspirin.core.Statuses;
+	import com.johnlindquist.flashbelt.service.SearchTwitterService;
+	import com.destroytoday.twitteraspirin.Twitter;
+	import flight.domain.AsyncCommand;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class SearchTwitterCommand extends AsyncCommand {
+		
+		[Inject]
+		public var query:String;
+		
+		[Inject]
+		public var searchTwitterService:SearchTwitterService;
+		
+		override public function execute() : void {
+			response = searchTwitterService.search(query);
+			response.addResultHandler(onResult);
+		}
+
+		private function onResult(data:*) : void {
+			
+			FlashBeltTwitterViewState.currentState = FlashBeltTwitterViewState.HIDE_SEARCH;
+			
+			if(data is Vector.<StatusVO>)
+			{
+				for each(var statusVO:StatusVO in data)
+				{
+					trace(statusVO.user.name);
+				}
+			}
+		}
+	}
+}

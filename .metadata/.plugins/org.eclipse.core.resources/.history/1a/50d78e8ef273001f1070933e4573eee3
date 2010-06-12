@@ -1,0 +1,17 @@
+package {
+	import com.johnlindquist.gotcake.GotCakeContext;
+
+	import flash.display.Sprite;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class Main extends Sprite {
+		private var context : GotCakeContext;
+
+		public function Main() {
+			context = new GotCakeContext();
+			context.contextView = this;
+		}
+	}
+}

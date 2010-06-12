@@ -1,0 +1,32 @@
+/*
+Copyright (c) 2010 Roundarch, All Rights Reserved 
+
+@author   John Lindquist
+@contact  johnlindquist@gmail.com
+@project  FlashBelt
+*/
+package com.johnlindquist.flashbelt.view
+{
+	//imports
+            import com.johnlindquist.flashbelt.signals.StatusUpdated;
+            import com.johnlindquist.flashbelt.signals.LoggedIn;
+	
+	import org.robotlegs.mvcs.Mediator;
+	
+	public class CommentsViewMediator extends Mediator
+	{
+		[Inject]
+		public var commentsView:CommentsView;		
+
+		//signals
+            [Inject]
+            public var statusUpdated:StatusUpdated;
+            [Inject]
+            public var loggedIn:LoggedIn;
+
+		override public function onRegister():void
+		{
+			
+		}
+	}
+}

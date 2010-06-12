@@ -1,0 +1,18 @@
+package com.johnlindquist.gotcake.view {
+	import assets.ILikeCakeView;
+
+	import org.robotlegs.mvcs.Mediator;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class ILikeCakeViewMediator extends Mediator {
+
+		[Inject]
+		public var iLikeCakeView:assets.ILikeCakeView;
+
+		override public function onRegister() : void {
+			iLikeCakeView.doSomething();
+		}
+	}
+}

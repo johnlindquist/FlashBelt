@@ -1,0 +1,17 @@
+package {
+	import com.johnlindquist.gotcake.TelephoneLines;
+
+	import flash.display.Sprite;
+
+	/**
+	 * @author John Lindquist
+	 */
+	public class GotCakeApp extends Sprite {
+		private var context : TelephoneLines;
+
+		public function GotCakeApp() {
+			context = new TelephoneLines();
+			context.contextView = this;
+		}
+	}
+}
