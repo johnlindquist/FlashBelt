@@ -5,11 +5,7 @@ package com.johnlindquist.flashbelt.signals
 	/**
 	 * @author John
 	 */
-	public class SearchTwitterSignal extends Signal 
+	public class LoadImagesSignal extends Signal 
 	{
-		public function SearchTwitterSignal() 
-		{
-			super(String);
-		}
 	}
 }

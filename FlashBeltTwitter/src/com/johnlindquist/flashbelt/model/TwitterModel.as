@@ -1,4 +1,5 @@
 package com.johnlindquist.flashbelt.model {
+	import flight.list.Collection;
 	import com.destroytoday.twitteraspirin.vo.StatusVO;
 
 	/**
@@ -7,5 +8,6 @@ package com.johnlindquist.flashbelt.model {
 	[Bindable]
 	public class TwitterModel {
 		public var searchResults:Vector.<StatusVO>;
+		public var images:Collection = new Collection();
 	}
 }

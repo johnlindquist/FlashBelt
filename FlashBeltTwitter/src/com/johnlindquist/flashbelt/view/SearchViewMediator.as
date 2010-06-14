@@ -6,7 +6,7 @@ Copyright (c) 2010 Roundarch, All Rights Reserved
 @project  FlashBeltTwitter
 */
 package com.johnlindquist.flashbelt.view {
-	import com.johnlindquist.flashbelt.signals.SearchTwitterSignal;
+	import com.johnlindquist.flashbelt.signals.SearchTwitterAndLoadImagesSignal;
 	import com.destroytoday.twitteraspirin.Twitter;
 	import com.destroytoday.twitteraspirin.oauth.OAuth;
 	import com.destroytoday.twitteraspirin.vo.OAuthTokenVO;
@@ -26,7 +26,7 @@ package com.johnlindquist.flashbelt.view {
 		public var searchView:SearchView;
 		
 		[Inject]
-		public var searchTwitterSignal:SearchTwitterSignal;
+		public var searchTwitterSignal:SearchTwitterAndLoadImagesSignal;
 
 		//signals
 
