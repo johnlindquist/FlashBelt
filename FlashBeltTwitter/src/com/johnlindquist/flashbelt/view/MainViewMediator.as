@@ -28,10 +28,16 @@ package com.johnlindquist.flashbelt.view
 			mainView.physicsButton.addEventListener(MouseEvent.CLICK, onPhysicsButtonClick);
 			mainView.hypeButton.addEventListener(MouseEvent.CLICK, onHypeButtonClick);
 			mainView.minimalCompsButton.addEventListener(MouseEvent.CLICK, onMinimalCompsButton);
+			mainView.searchButton.addEventListener(MouseEvent.CLICK, onSearchButtonClick);
 					
 			mainView.content.addChild(new mainViewState.currentState());
 			
 			Bind.addListener(onMainViewStateChange, mainViewState, "currentState");
+		}
+
+		private function onSearchButtonClick(event:MouseEvent):void 
+		{
+			mainViewState.currentState = MainViewState.SEARCH_VIEW;
 		}
 
 		private function onMinimalCompsButton(event:MouseEvent):void 

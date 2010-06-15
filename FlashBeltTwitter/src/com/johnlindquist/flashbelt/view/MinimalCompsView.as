@@ -30,6 +30,7 @@ package com.johnlindquist.flashbelt.view
 			
 			vbox.addChild(textArea);
 			
+			vbox.x = 100;
 			vbox.y = 100;
 			vbox.scaleX = vbox.scaleY = 2;
 			

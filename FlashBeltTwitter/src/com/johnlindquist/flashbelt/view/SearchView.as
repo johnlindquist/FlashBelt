@@ -26,6 +26,9 @@ package com.johnlindquist.flashbelt.view
 			
 			vBox.scaleX = vBox.scaleY = 3;
 			
+			vBox.x = 350;
+			vBox.y = 250;
+			
 			addChild(vBox);
 		}
 	}

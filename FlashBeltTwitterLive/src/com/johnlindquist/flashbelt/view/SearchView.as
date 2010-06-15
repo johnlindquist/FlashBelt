@@ -20,11 +20,15 @@ package com.johnlindquist.flashbelt.view
 							
 			inputText = new InputText();
 			searchButton = new PushButton();
+			searchButton.label = "Search";
 			
 			vBox.addChild(inputText);
 			vBox.addChild(searchButton);
 			
 			vBox.scaleX = vBox.scaleY = 3;
+			
+			vBox.x = 350;
+			vBox.y = 250;
 			
 			addChild(vBox);
 		}

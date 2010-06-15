@@ -42,7 +42,7 @@ package com.johnlindquist.flashbelt.controller
 			if(data is String)
 			{
 				twitterModel.statuses = new Collection(DataParser.parseSearchResults(XML(data)));
-				twitterModel.imageURLs = new Collection();
+				twitterModel.imageURLs.removeAll();
 				
 				for each (var searchResult : SearchResultData in twitterModel.statuses) 
 				{

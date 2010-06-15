@@ -12603,3 +12603,24 @@ org.eclipse.jface.text.BadLocationException
 	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
 	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY org.eclipse.jface 2 0 2010-06-15 06:16:14.425
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-06-15 06:16:14.425
+!MESSAGE A conflict occurred for CTRL+R:
+Binding(CTRL+R,
+	ParameterizedCommand(Command(org.eclipse.debug.ui.commands.RunToLine,Run to Line,
+		Resume and break when execution reaches the current line,
+		Category(org.eclipse.debug.ui.category.run,Run/Debug,Run/Debug command category,true),
+		ActionDelegateHandlerProxy(null,org.eclipse.debug.internal.ui.actions.RetargetRunToLineAction),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.debug.ui.debugging,,,system)
+Binding(CTRL+R,
+	ParameterizedCommand(Command(com.powerflasher.fdt.ui.actions.FindReferences,Find References,
+		Search for references of selected element in current project,
+		Category(com.powerflasher.fdt.ui.category.search,Search,null,true),
+		ActionDelegateHandlerProxy(null,com.powerflasher.fdt.internal.ui.editor.actions.search.FindReferencesInProjectActionDelegate),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.powerflasher.fdt.ui.editor.scope2,,,system)

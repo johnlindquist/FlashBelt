@@ -1,5 +1,8 @@
 package com.johnlindquist.flashbelt.view 
 {
+	import com.bit101.components.ListItem;
+	import com.swfjunkie.tweetr.data.objects.SearchResultData;
+	import com.swfjunkie.tweetr.data.objects.StatusData;
 	import com.johnlindquist.flashbelt.model.TwitterModel;
 
 	import org.robotlegs.mvcs.Mediator;
@@ -27,20 +30,20 @@ package com.johnlindquist.flashbelt.view
 		{
 			twitterModel.statuses.addEventListener(CollectionEvent.COLLECTION_CHANGE, onStatusesCollectionChange);
 			
-//			for each (var status : StatusVO in twitterModel.statuses) 
-//			{
-//				var listText:String = status.user.name + status;
-//				
-//				userNameToStatusMap[listText] = status.text;
-//				minimalCompsView.addToList(listText);
-//			}
+			for each (var status : SearchResultData in twitterModel.statuses) 
+			{
+				var listObject:Object = {};
+				listObject.data = status;
+				listObject.label = status.user;				
+				minimalCompsView.addToList(listObject);
+			}
 			
 			minimalCompsView.list.addEventListener(Event.SELECT, onListSelect);
 		}
 
 		private function onListSelect(event:Event):void 
 		{
-			minimalCompsView.textArea.text = userNameToStatusMap[minimalCompsView.list.selectedItem];
+			minimalCompsView.textArea.text = SearchResultData(minimalCompsView.list.selectedItem.data).text;
 		}
 
 		private function onStatusesCollectionChange(event:CollectionEvent):void 
