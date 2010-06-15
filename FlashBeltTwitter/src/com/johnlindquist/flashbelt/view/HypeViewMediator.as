@@ -1,14 +1,13 @@
 package com.johnlindquist.flashbelt.view 
 {
-	import flash.display.Bitmap;
-	import flash.display.DisplayObject;
-
-	import mx.events.CollectionEventKind;
-	import mx.events.CollectionEvent;
-
 	import com.johnlindquist.flashbelt.model.TwitterModel;
 
 	import org.robotlegs.mvcs.Mediator;
+
+	import mx.events.CollectionEvent;
+	import mx.events.CollectionEventKind;
+
+	import flash.display.Bitmap;
 
 	/**
 	 * @author John
@@ -32,13 +31,6 @@ package com.johnlindquist.flashbelt.view
 			}
 		}
 
-		
-		override public function onRemove():void 
-		{
-			hypeView.destroy();
-			super.onRemove();
-		}
-
 		private function onImagesChange(event:CollectionEvent):void 
 		{
 			trace("onImagesChange");				
@@ -51,7 +43,6 @@ package com.johnlindquist.flashbelt.view
 						hypeView.addToCanvas(new Bitmap(image.bitmapData));
 					}
 					break;
-				default:
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package com.johnlindquist.flashbelt.view 
 {
+	import com.bit101.components.ProgressBar;
 	import com.bit101.components.PushButton;
 	import com.bit101.components.InputText;
 	import com.bit101.components.VBox;
@@ -20,19 +21,23 @@ package com.johnlindquist.flashbelt.view
 			var vBox:VBox = new VBox();
 			
 			usernameText = new InputText();
+			usernameText.text = "johnlindquist";
 			passwordText = new InputText();
 			passwordText.password = true;
 			
+			
+						
 			submitButton = new PushButton();
 			submitButton.label = "Login";
-			;
 			
 			vBox.addChild(usernameText);
 			vBox.addChild(passwordText);
 			vBox.addChild(submitButton);
 			
+			
 			vBox.scaleX = vBox.scaleY = 3;
 			
+			vBox.x = 250;
 			vBox.y = 100;
 			
 			addChild(vBox);

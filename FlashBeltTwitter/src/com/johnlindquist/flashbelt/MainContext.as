@@ -22,7 +22,6 @@ package com.johnlindquist.flashbelt
 	import com.johnlindquist.flashbelt.state.MainViewState;
 	import com.johnlindquist.flashbelt.view.Box2DFlashView;
 	import com.johnlindquist.flashbelt.view.Box2DFlashViewMediator;
-	import com.johnlindquist.flashbelt.view.FlashBeltTwitterViewMediator;
 	import com.johnlindquist.flashbelt.view.HypeView;
 	import com.johnlindquist.flashbelt.view.HypeViewMediator;
 	import com.johnlindquist.flashbelt.view.LoginView;
@@ -31,6 +30,7 @@ package com.johnlindquist.flashbelt
 	import com.johnlindquist.flashbelt.view.MainViewMediator;
 	import com.johnlindquist.flashbelt.view.MinimalCompsView;
 	import com.johnlindquist.flashbelt.view.MinimalCompsViewMediator;
+	import com.johnlindquist.flashbelt.view.SearchView;
 	import com.johnlindquist.flashbelt.view.SearchViewMediator;
 	import com.swfjunkie.tweetr.Tweetr;
 
@@ -49,8 +49,7 @@ package com.johnlindquist.flashbelt
 			
 			//map services
 			var twitter:Tweetr = new Tweetr();
-			twitter.useAuthHeaders = true;
-//			twitter.serviceHost = "labs.swfjunkie.com/tweetr/proxy";
+			twitter.serviceHost = "labs.swfjunkie.com/tweetr/proxy";
 			injector.mapValue(Tweetr, twitter);
 			injector.mapSingleton(SearchTwitterService);
 			injector.mapSingleton(LoadImageService);
@@ -63,12 +62,9 @@ package com.johnlindquist.flashbelt
             mediatorMap.mapView(MainView,MainViewMediator);
             mediatorMap.mapView(LoginView,LoginViewMediator);
             mediatorMap.mapView(SearchView,SearchViewMediator);
-            mediatorMap.mapView(FlashBeltTwitterView,FlashBeltTwitterViewMediator);
             mediatorMap.mapView(Box2DFlashView,Box2DFlashViewMediator);
             mediatorMap.mapView(HypeView, HypeViewMediator);
             mediatorMap.mapView(MinimalCompsView, MinimalCompsViewMediator);
-			
-			super.startup();
 			
 			contextView.addChild(new MainView());
 		}		

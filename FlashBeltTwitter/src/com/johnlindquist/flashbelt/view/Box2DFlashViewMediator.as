@@ -31,12 +31,6 @@ package com.johnlindquist.flashbelt.view
 			}		
 		}
 
-		
-		override public function onRemove():void 
-		{
-			box2DFlashView.destroy();
-		}
-
 		private function onImagesChange(event:CollectionEvent):void 
 		{
 			trace("something", event.kind);

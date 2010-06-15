@@ -13,9 +13,6 @@ package com.johnlindquist.flashbelt.view
 
 	import flash.events.MouseEvent;
 
-	//imports
-
-	
 	public class SearchViewMediator extends Mediator
 	{
 
@@ -27,18 +24,13 @@ package com.johnlindquist.flashbelt.view
 
 		override public function onRegister():void 
 		{
-			searchView.searchInputText.text = "#FlashBelt";
+			searchView.inputText.text = "#FlashBelt";
 			searchView.searchButton.addEventListener(MouseEvent.CLICK, onMouseClick);
 		}
 
-		// return with the provided pin and click the 'Activate' button to get the access token
 		protected function onMouseClick(event:MouseEvent):void 
 		{
-			trace("text", searchView.searchInputText.text);
-			
-			var query:String = searchView.searchInputText.text;
-			trace("query: ", query)
-			
+			var query:String = searchView.inputText.text;
 			searchTwitterSignal.dispatch(query);
 		}
 	}

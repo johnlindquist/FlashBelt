@@ -1,5 +1,6 @@
 package com.johnlindquist.flashbelt.service 
 {
+	import flash.system.LoaderContext;
 	import flash.events.IOErrorEvent;
 	import flash.events.ErrorEvent;
 	import flight.net.IResponse;
@@ -23,14 +24,15 @@ package com.johnlindquist.flashbelt.service
 			loadImageResponse = new Response();
 			
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaderComplete);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onLoaderIOError);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onCatchAllError);
+			loader.contentLoaderInfo.addEventListener(ErrorEvent.ERROR, onCatchAllError);
 			var request:URLRequest = new URLRequest(url);
-			loader.load(request);
+			loader.load(request, new LoaderContext(true));
 			
 			return loadImageResponse;	
 		}
 
-		private function onLoaderIOError(event:IOErrorEvent):void 
+		private function onCatchAllError(event:*):void 
 		{
 			loadImageResponse.complete(null);
 		}

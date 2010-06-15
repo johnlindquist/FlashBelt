@@ -30,10 +30,10 @@ package com.johnlindquist.flashbelt.view
 						
 			var filter:ColorMatrixFilter = new ColorMatrixFilter();
 			var matrix:Array = new Array();
-			matrix = matrix.concat([.99, 0, 0, 0, 0]); // red
-			matrix = matrix.concat([0, 0, 0, 0, 0]); // green
-			matrix = matrix.concat([0, 0, 0, 0, 0]); // blue
-			matrix = matrix.concat([0, 0, 0, .99, 0]); // alpha
+			matrix = matrix.concat([1, 0, 0, 0, 0]); // red
+			matrix = matrix.concat([0, 1, 0, 0, 0]); // green
+			matrix = matrix.concat([0, 0, 1, 0, 0]); // blue
+			matrix = matrix.concat([0, 0, 0, .999, 0]); // alpha
 			filter.matrix = matrix;
 			blurRhythm = new FilterRhythm([filter], bmc.bitmap.bitmapData);
 			blurRhythm.start();
@@ -43,9 +43,10 @@ package com.johnlindquist.flashbelt.view
 		{
 			image.x = Math.random() * 500;
 			image.y = Math.random() * 500;
-			var swarm:Swarm = new Swarm(image, new Point(800 / 2, 600 / 2), 10, .03, 10);
+			image.z = 50;
+			var swarm:Swarm = new Swarm(image, new Point(800 / 2, 600 / 2), 6, .03, 0);
 			swarm.start();
-			var zVib:VariableVibration = new VariableVibration(image, "z", 0.99, 0.02, 10);
+			var zVib:VariableVibration = new VariableVibration(image, "z", 0.99, 0.2, 4);
 			zVib.start();
 			clipContainer.addChild(image);
 

@@ -1,5 +1,6 @@
 package com.johnlindquist.flashbelt.view 
 {
+	import com.bit101.components.VBox;
 	import com.bit101.components.HBox;
 	import com.bit101.components.PushButton;
 	import flash.display.Sprite;
@@ -15,7 +16,7 @@ package com.johnlindquist.flashbelt.view
 		public var physicsButton:PushButton = new PushButton();
 		public var hypeButton:PushButton = new PushButton();
 		public var minimalCompsButton:PushButton = new PushButton();
-		public var searchAgainButton:PushButton = new PushButton();
+		public var searchButton:PushButton = new PushButton();
 		
 		public function MainView() 
 		{
@@ -24,22 +25,28 @@ package com.johnlindquist.flashbelt.view
 			physicsButton.label = "Physics";
 			hypeButton.label = "Hype";
 			minimalCompsButton.label = "Minimal Comps";
-			searchAgainButton.label = "Search Again";
+			searchButton.label = "Search";
 
 			physicsButton.tabEnabled = false;
 			hypeButton.tabEnabled = false;
 			minimalCompsButton.tabEnabled = false;
-			searchAgainButton.tabEnabled = false;
+			searchButton.tabEnabled = false;
 						
-			var hbox:HBox = new HBox();
-			hbox.addChild(physicsButton);
-			hbox.addChild(hypeButton);
-			hbox.addChild(minimalCompsButton);
-			hbox.addChild(searchAgainButton);
+			var leftHBox:VBox = new VBox();
+			leftHBox.addChild(physicsButton);
+			leftHBox.addChild(hypeButton);
+			leftHBox.addChild(minimalCompsButton);
+			
+			
+			var rightHBox:VBox = new VBox();
+			rightHBox.addChild(searchButton);
+			
+			leftHBox.scaleX = leftHBox.scaleY = rightHBox.scaleX = rightHBox.scaleY = 2;
 
-			hbox.scaleX = hbox.scaleY = 2;
-
-			menu.addChild(hbox);
+			menu.addChild(leftHBox);
+			
+			rightHBox.x = 600; 
+			menu.addChild(rightHBox);
 			
 			addChild(menu);
 		}

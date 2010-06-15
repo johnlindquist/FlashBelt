@@ -33,16 +33,11 @@ package com.johnlindquist.flashbelt.service
 
 		private function onFailed(event:TweetEvent):void 
 		{
-			if(event.data is Error)
-			{
-				response.cancel(event.data as Error);
-			}
+			response.cancel(new Error("Getting mentions failed"));
 		}
 
 		private function onGetMentions(event:TweetEvent):void 
 		{
-			trace("complete", event);
-			
 			response.complete(event.data);
 		}
 	}

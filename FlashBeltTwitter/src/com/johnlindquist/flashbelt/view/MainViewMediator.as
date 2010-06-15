@@ -16,9 +16,10 @@ package com.johnlindquist.flashbelt.view
 	 */
 	public class MainViewMediator extends Mediator 
 	{
+
 		[Inject]
 		public var mainView:MainView;
-		
+
 		[Inject]
 		public var mainViewState:MainViewState;
 
@@ -35,13 +36,13 @@ package com.johnlindquist.flashbelt.view
 
 		private function onMinimalCompsButton(event:MouseEvent):void 
 		{
-			mainViewState.currentState = MainViewState.MINIMAL_COMPS;
+			mainViewState.currentState = MainViewState.MINIMAL_COMPS_VIEW;
 		}
 
 		private function onHypeButtonClick(event:MouseEvent):void 
 		{
 			trace("onHypeButtonClick");
-			mainViewState.currentState = MainViewState.HYPE;
+			mainViewState.currentState = MainViewState.HYPE_VIEW;
 		}
 
 		private function onPhysicsButtonClick(event:MouseEvent):void 
@@ -52,13 +53,13 @@ package com.johnlindquist.flashbelt.view
 
 		private function onMainViewStateChange(event:PropertyChangeEvent):void 
 		{
-			mainView.removeChild(mainView.content);
-			mainView.content = new Sprite();
-			mainView.addChildAt(mainView.content, 0);
-			
+			if(mainView.content.getChildAt(0))
+			{
+				mainView.content.removeChildAt(0);
+			}
 			mainView.content.addChild(new mainViewState.currentState());
-			
-			if(mainViewState.currentState == MainViewState.FLASH_BELT_TWITTER_VIEW)
+				
+			if(mainViewState.currentState == MainViewState.LOGIN_VIEW)
 			{
 				mainView.menu.visible = false;
 			}
