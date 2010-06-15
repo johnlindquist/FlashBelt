@@ -38,6 +38,7 @@ package com.johnlindquist.flashbelt.service
 
 		private function onGetMentions(event:TweetEvent):void 
 		{
+			trace(event.data);
 			response.complete(event.data);
 		}
 	}

@@ -1,0 +1,3 @@
+var twitter:Tweetr = new Tweetr();
+twitter.serviceHost = "labs.swfjunkie.com/tweetr/proxy";
+injector.mapValue(Tweetr, twitter);

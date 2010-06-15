@@ -7,7 +7,7 @@ package com.johnlindquist.gotcake {
 	import com.johnlindquist.gotcake.view.ILikeCakeViewMediator;
 	import com.johnlindquist.gotcake.signals.CakeOrdered;
 	import com.johnlindquist.gotcake.controller.OrderCake;
-	import com.johnlindquist.gotcake.model.TrumpFridge;
+	import com.johnlindquist.gotcake.model.Fridge;
 	import com.johnlindquist.gotcake.services.Bakery;
 
 	import org.robotlegs.mvcs.SignalContext;
@@ -18,7 +18,7 @@ package com.johnlindquist.gotcake {
 	public class TelephoneLines extends SignalContext {
 		override public function startup() : void {
 			injector.mapSingleton(Bakery);
-			injector.mapSingleton(TrumpFridge);
+			injector.mapSingleton(Fridge);
 			injector.mapSingleton(FrameState);
 			
 			signalCommandMap.mapSignalClass(CakeOrdered, OrderCake);

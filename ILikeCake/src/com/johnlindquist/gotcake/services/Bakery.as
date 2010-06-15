@@ -1,33 +1,32 @@
-package com.johnlindquist.gotcake.services {
+package com.johnlindquist.gotcake.services 
+{
+	import com.johnlindquist.gotcake.model.vo.Order;
+	import flash.net.URLRequest;
 	import flight.net.IResponse;
 	import flight.net.Response;
 
-	import com.johnlindquist.gotcake.services.vo.BakeryDelivery;
+	import flash.events.Event;
+	import flash.net.URLLoader;
 
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
+	public class Bakery 
+	{
+		private var placeOrderResponse:Response;
+		private var loader:URLLoader;
 
-	/**
-	 * @author John Lindquist
-	 */
-	public class Bakery {
-		private var placeOrderResponse : Response;
-
-		public function placeOrder(type : String) : IResponse {
-			trace("placeOrder")
+		public function placeOrder(type:Order):IResponse 
+		{
 			placeOrderResponse = new Response();
 			
-			var timer : Timer = new Timer(1000, 1);
-			timer.addEventListener(TimerEvent.TIMER_COMPLETE, onWaitOneSecond);
-			timer.start();
+			var request:URLRequest = new URLRequest(type);
+			loader = new URLLoader(request);
+			loader.addEventListener(Event.COMPLETE, onLoaderComplete);
 			
 			return placeOrderResponse;
 		}
 
-		private function onWaitOneSecond(event:TimerEvent) : void {
-			var delivery : BakeryDelivery = new BakeryDelivery(BakeryDelivery.CAKE);
-			trace("onWaitOneSecond");
-			placeOrderResponse.complete(delivery)
+		private function onLoaderComplete(event:Event):void 
+		{
+			placeOrderResponse.complete(event.target);			
 		}
 	}
 }

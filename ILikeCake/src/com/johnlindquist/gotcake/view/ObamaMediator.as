@@ -5,5 +5,10 @@ package com.johnlindquist.gotcake.view {
 	 * @author John Lindquist
 	 */
 	public class ObamaMediator extends Mediator {
+		[Inject]
+		public var obamaView:ObamaView;
+		
+				
+		
 	}
 }
