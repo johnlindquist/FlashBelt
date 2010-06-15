@@ -27,12 +27,10 @@ package com.johnlindquist.flashbelt.view
 			addChild(bmc);
 			clipContainer = new Sprite();
 			bmc.startCapture(clipContainer, true);
-			
-			addEventListener(Event.ENTER_FRAME, behaviorsCheck);
 						
 			var filter:ColorMatrixFilter = new ColorMatrixFilter();
 			var matrix:Array = new Array();
-			matrix = matrix.concat([1, 0, 0, 0, 0]); // red
+			matrix = matrix.concat([.99, 0, 0, 0, 0]); // red
 			matrix = matrix.concat([0, 0, 0, 0, 0]); // green
 			matrix = matrix.concat([0, 0, 0, 0, 0]); // blue
 			matrix = matrix.concat([0, 0, 0, .99, 0]); // alpha
@@ -41,28 +39,18 @@ package com.johnlindquist.flashbelt.view
 			blurRhythm.start();
 		}
 
-		private function behaviorsCheck(event:Event):void 
-		{
-			trace("behaviorsCheck")
-			for each (var behavior : AbstractBehavior in behaviors) 
-			{
-				trace("isRunning", behavior, behavior.isRunning);
-			}	
-		}
-
 		public function addToCanvas(image:DisplayObject):void 
 		{
-			trace("addToCanvas", image);
 			image.x = Math.random() * 500;
 			image.y = Math.random() * 500;
-//			var swarm:Swarm = new Swarm(image, new Point(800 / 2, 600 / 2), 10, .03, 10);
-//			swarm.start();
-//			var zVib:VariableVibration = new VariableVibration(image, "z", 0.99, 0.02, 10);
-//			zVib.start();
+			var swarm:Swarm = new Swarm(image, new Point(800 / 2, 600 / 2), 10, .03, 10);
+			swarm.start();
+			var zVib:VariableVibration = new VariableVibration(image, "z", 0.99, 0.02, 10);
+			zVib.start();
 			clipContainer.addChild(image);
 
-//			behaviors.push(swarm);
-//			behaviors.push(zVib);
+			behaviors.push(swarm);
+			behaviors.push(zVib);
 		}
 		
 		public function destroy():void

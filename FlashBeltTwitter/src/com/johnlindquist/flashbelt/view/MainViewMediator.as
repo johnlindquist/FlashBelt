@@ -26,10 +26,16 @@ package com.johnlindquist.flashbelt.view
 		{
 			mainView.physicsButton.addEventListener(MouseEvent.CLICK, onPhysicsButtonClick);
 			mainView.hypeButton.addEventListener(MouseEvent.CLICK, onHypeButtonClick);
-			
+			mainView.minimalCompsButton.addEventListener(MouseEvent.CLICK, onMinimalCompsButton);
+					
 			mainView.content.addChild(new mainViewState.currentState());
 			
 			Bind.addListener(onMainViewStateChange, mainViewState, "currentState");
+		}
+
+		private function onMinimalCompsButton(event:MouseEvent):void 
+		{
+			mainViewState.currentState = MainViewState.MINIMAL_COMPS;
 		}
 
 		private function onHypeButtonClick(event:MouseEvent):void 
@@ -46,11 +52,6 @@ package com.johnlindquist.flashbelt.view
 
 		private function onMainViewStateChange(event:PropertyChangeEvent):void 
 		{
-			trace("event.kind", event.kind);
-//			var oldView:DisplayObject = mainView.content.removeChildAt(0);
-//			mediatorMap.removeMediatorByView(oldView);
-//			oldView = null;
-			
 			mainView.removeChild(mainView.content);
 			mainView.content = new Sprite();
 			mainView.addChildAt(mainView.content, 0);

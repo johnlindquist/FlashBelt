@@ -9,7 +9,7 @@ Copyright (c) 2010 Roundarch, All Rights Reserved
  */
 package 
 {
-	import com.johnlindquist.flashbelt.FlashBeltTwitterContext;
+	import com.johnlindquist.flashbelt.MainContext;
 
 	import flash.display.Sprite;
 
@@ -18,7 +18,7 @@ package
 
 	public class Main extends Sprite 
 	{
-		protected var context:FlashBeltTwitterContext = new FlashBeltTwitterContext(); 
+		protected var context:MainContext = new MainContext(); 
 
 		public function Main() 
 		{

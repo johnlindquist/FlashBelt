@@ -155,7 +155,7 @@ package com.johnlindquist.flashbelt.view
 			dbgDraw.m_fillAlpha = 0.0;
 			dbgDraw.m_lineThickness = 1.0;
 			dbgDraw.m_drawFlags = 0xFFFFFFFF;
-						world.SetDebugDraw(dbgDraw);
+//			world.SetDebugDraw(dbgDraw);
 			
 			
 			
@@ -250,17 +250,6 @@ package com.johnlindquist.flashbelt.view
 		public function destroy():void 
 		{
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
-			for (var bb:b2Body = world.m_bodyList;bb;bb = bb.m_next)
-			{
-				if (bb.m_userData is DisplayObject)
-				{
-					removeChild(bb.m_userData);
-					bb.m_userData = null;
-					bb = null;
-				}
-			}
-			
-			world = null;
 		}
 	}
 }

@@ -1,10 +1,11 @@
 package com.johnlindquist.flashbelt.controller 
 {
-	import com.destroytoday.twitteraspirin.vo.StatusVO;
+	import com.swfjunkie.tweetr.data.objects.StatusData;
 	import flight.domain.AsyncCommand;
 
 	import com.johnlindquist.flashbelt.model.TwitterModel;
 	import com.johnlindquist.flashbelt.service.LoadImageService;
+	import com.swfjunkie.tweetr.data.objects.SearchResultData;
 
 	import flash.display.DisplayObject;
 
@@ -24,11 +25,12 @@ package com.johnlindquist.flashbelt.controller
 
 		override public function execute():void 
 		{
-			trace("loading image!!!", index, twitterModel.searchResults.length);
-			
-			if(index < twitterModel.searchResults.length)
+			trace("loading images");
+			if(index < twitterModel.imageURLs.length)
 			{
-				response = loadImageService.load(StatusVO(twitterModel.searchResults[index]).user.profileImageURL);
+				var imageURL:String = twitterModel.imageURLs.getItemAt(index) as String;
+				
+				response = loadImageService.load(imageURL);
 					
 				response.addResultHandler(onImageLoaded);
 			}
@@ -36,7 +38,6 @@ package com.johnlindquist.flashbelt.controller
 
 		private function onImageLoaded(image:*):void 
 		{
-			trace("image loaded!!!", index, twitterModel.searchResults.length);
 			if(image is DisplayObject)
 			{
 				twitterModel.images.addItem(image);

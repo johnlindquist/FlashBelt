@@ -1,36 +1,35 @@
-package com.johnlindquist.flashbelt.service {
-	import com.destroytoday.twitteraspirin.vo.StatusVO;
-	import com.destroytoday.twitteraspirin.core.Statuses;
-	import flight.net.Response;
-	import com.destroytoday.net.XMLLoader;
-
+package com.johnlindquist.flashbelt.service 
+{
 	import flight.net.IResponse;
-	import com.destroytoday.twitteraspirin.Twitter;
+	import flight.net.Response;
+
+	import com.swfjunkie.tweetr.Tweetr;
+	import com.swfjunkie.tweetr.events.TweetEvent;
 
 	/**
 	 * @author John Lindquist
 	 */
-	public class SearchTwitterService {
+	public class SearchTwitterService 
+	{
+
 		[Inject]
-		public var twitter:Twitter;
-		private var searchResponse : Response;
+		public var twitter:Tweetr;
 
-		[PostConstruct]
-		public function construct():void {
-			twitter.statuses.getSearchTimelineSignal.add(onSearchTimeline);
-		}
+		private var searchResponse:Response;
 
-		
-		public function search(query:String) : IResponse {
+		public function search(query:String):IResponse 
+		{
 			searchResponse = new Response(); 
 			
-			twitter.statuses.getSearchTimeline(query);
+			twitter.addEventListener(TweetEvent.COMPLETE, searchTimelineComplete);
+			twitter.search(query);
 			
 			return searchResponse;
 		}
 
-		private function onSearchTimeline(statuses:*, statusVO:*) : void {
-			searchResponse.complete(statusVO);						
+		private function searchTimelineComplete(event:TweetEvent):void 
+		{
+			searchResponse.complete(event.data);
 		}
 	}
 }

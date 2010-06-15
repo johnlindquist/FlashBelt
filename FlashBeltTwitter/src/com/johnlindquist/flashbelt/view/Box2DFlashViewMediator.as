@@ -25,9 +25,9 @@ package com.johnlindquist.flashbelt.view
 		{
 			twitterModel.images.addEventListener(CollectionEvent.COLLECTION_CHANGE, onImagesChange);	
 			
-			for each (var image : DisplayObject in twitterModel.images.source) 
+			for each (var image : Bitmap in twitterModel.images.source) 
 			{
-				box2DFlashView.addToWorld(image);
+				box2DFlashView.addToWorld(new Bitmap(image.bitmapData));
 			}		
 		}
 
@@ -44,7 +44,7 @@ package com.johnlindquist.flashbelt.view
 			{
 				case CollectionEventKind.ADD:
 					var image:Bitmap = twitterModel.images[event.location];
-					box2DFlashView.addToWorld(image);													
+					box2DFlashView.addToWorld(new Bitmap(image.bitmapData));													
 					break;
 			}
 		}

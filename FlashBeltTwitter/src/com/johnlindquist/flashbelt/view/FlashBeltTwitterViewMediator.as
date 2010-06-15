@@ -31,21 +31,12 @@ package com.johnlindquist.flashbelt.view
 		override public function onRegister():void 
 		{
 			Bind.addListener(onFlashBeltTwitterViewStateChange, flashBeltTwitterViewState, "currentState");				
-			Bind.addListener(onSearchResults, twitterModel, "searchResults");				
 		}
 
 		private function onFlashBeltTwitterViewStateChange(event:PropertyChangeEvent):void 
 		{
 			trace("old state:", event.oldValue, "new state:", event.newValue);
 			flashBeltTwitterView.gotoAndPlay("search");
-		}
-
-		private function onSearchResults(event:*):void 
-		{
-			if(event.newValue) 
-			{
-
-			}
 		}
 	}
 }

@@ -13,10 +13,16 @@ package org.robotlegs.utilities.macrocommand
 		[PostConstruct]
 		public function construct():void
 		{
+			onRegister();
+			
 			for each (var command:ICommand in commands.source) 
 			{
 				injector.injectInto(command);	
 			}
+		}
+
+		protected function onRegister():void 
+		{
 		}
 	}
 }

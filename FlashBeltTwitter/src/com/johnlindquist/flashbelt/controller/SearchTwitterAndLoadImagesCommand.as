@@ -10,12 +10,12 @@ package com.johnlindquist.flashbelt.controller
 		[Inject]
 		public var query:String;
 
-		public function SearchTwitterAndLoadImagesCommand() 
+		override protected function onRegister():void 
 		{
 			var searchTwitterCommand:SearchTwitterCommand = new SearchTwitterCommand(query);
 			var loadImagesCommand:LoadImagesCommand = new LoadImagesCommand();
 			
 			commands = [searchTwitterCommand, loadImagesCommand];		
 		}
-	};
+	}
 }

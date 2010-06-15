@@ -1,18 +1,19 @@
 package com.johnlindquist.flashbelt.controller 
 {
 	import flight.domain.AsyncCommand;
+	import flight.list.Collection;
 
-	import com.destroytoday.twitteraspirin.vo.StatusVO;
 	import com.johnlindquist.flashbelt.model.TwitterModel;
 	import com.johnlindquist.flashbelt.service.SearchTwitterService;
 	import com.johnlindquist.flashbelt.state.MainViewState;
+	import com.swfjunkie.tweetr.data.DataParser;
+	import com.swfjunkie.tweetr.data.objects.SearchResultData;
 
 	/**
 	 * @author John
 	 */
 	public class SearchTwitterCommand extends AsyncCommand
 	{
-
 		public var query:String;
 
 		[Inject]
@@ -32,20 +33,24 @@ package com.johnlindquist.flashbelt.controller
 		
 		override public function execute():void 
 		{
-			trace("searching twitter");
 			response = searchTwitterService.search(query);
 			response.addResultHandler(onResult);
 		}
 
 		private function onResult(data:*):void 
 		{
-			
-			flashBeltTwitterViewState.currentState = MainViewState.BOX2D_FLASH_VIEW;
-			
-			if(data is Vector.<StatusVO>) 
+			if(data is String)
 			{
-				twitterModel.searchResults = data;		
+				twitterModel.statuses = new Collection(DataParser.parseSearchResults(XML(data)));
+				twitterModel.imageURLs = new Collection();
+				
+				for each (var searchResult : SearchResultData in twitterModel.statuses) 
+				{
+					twitterModel.imageURLs.addItem(searchResult.userProfileImage);
+				}				
 			}
+
+			flashBeltTwitterViewState.currentState = MainViewState.BOX2D_FLASH_VIEW;
 		}
 	}
 }

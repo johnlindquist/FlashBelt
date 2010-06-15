@@ -1,5 +1,6 @@
 package com.johnlindquist.flashbelt.view 
 {
+	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 
 	import mx.events.CollectionEventKind;
@@ -23,12 +24,11 @@ package com.johnlindquist.flashbelt.view
 
 		override public function onRegister():void 
 		{
-			trace("HypeViewMediator, onRegister")
 			twitterModel.images.addEventListener(CollectionEvent.COLLECTION_CHANGE, onImagesChange);	
 			
-			for each (var image : DisplayObject in twitterModel.images.source) 
+			for each (var image : Bitmap in twitterModel.images.source) 
 			{
-				hypeView.addToCanvas(image);
+				hypeView.addToCanvas(new Bitmap(image.bitmapData));
 			}
 		}
 
@@ -46,9 +46,9 @@ package com.johnlindquist.flashbelt.view
 			{
 				case CollectionEventKind.UPDATE:
 					
-					for each (var image : DisplayObject in twitterModel.images.source) 
+					for each (var image : Bitmap in twitterModel.images.source) 
 					{
-						hypeView.addToCanvas(image);
+						hypeView.addToCanvas(new Bitmap(image.bitmapData));
 					}
 					break;
 				default:
